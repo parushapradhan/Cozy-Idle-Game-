@@ -1,6 +1,6 @@
 // Room2.js
 import { loadPlayerAssets, loadAnimalAssets, playAnimalAnimation } from '../gameUtils.js';
-import { Player } from '../objects/Player.js';
+import { Player } from '../objects/player.js';
 
 let cursors, keys, keyE, player, interactiveObj, decoration;
 let blue, cauldron, candle1, basement;

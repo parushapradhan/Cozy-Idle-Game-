@@ -1,15 +1,15 @@
 // public/js/loaders/loadPlayerAssets.js
 export function loadPlayerAssets(scene) {
     if (typeof USER !== "undefined" && USER.character === 'robed') {
-        scene.load.spritesheet('player_idle_left', '/assets/images/wizard/characters/robed/idle/ROLEWORLD_MC_SKIN_PALE_WIZARD_IDLE_LEFT.png', { frameWidth: 16, frameHeight: 32 });
-        scene.load.spritesheet('player_idle_right', '/assets/images/wizard/characters/robed/idle/ROLEWORLD_MC_SKIN_PALE_WIZARD_IDLE_RIGHT.png', { frameWidth: 16, frameHeight: 32 });
-        scene.load.spritesheet('player_idle_front', '/assets/images/wizard/characters/robed/idle/ROLEWORLD_MC_SKIN_PALE_WIZARD_IDLE_FRONT.png', { frameWidth: 16, frameHeight: 32 });
-        scene.load.spritesheet('player_idle_back', '/assets/images/wizard/characters/robed/idle/ROLEWORLD_MC_SKIN_PALE_WIZARD_IDLE_BACK.png', { frameWidth: 16, frameHeight: 32 });
+        scene.load.spritesheet('player_idle_left', '/assets/images/wizard/characters/robed/idle/ROLEWORLD_MC_SKIN_PALE_WIZARD_IDLE_LEFT.png', { frameWidth: 16, frameHeight: 30 });
+        scene.load.spritesheet('player_idle_right', '/assets/images/wizard/characters/robed/idle/ROLEWORLD_MC_SKIN_PALE_WIZARD_IDLE_RIGHT.png', { frameWidth: 16, frameHeight: 30 });
+        scene.load.spritesheet('player_idle_front', '/assets/images/wizard/characters/robed/idle/ROLEWORLD_MC_SKIN_PALE_WIZARD_IDLE_FRONT.png', { frameWidth: 16, frameHeight: 30 });
+        scene.load.spritesheet('player_idle_back', '/assets/images/wizard/characters/robed/idle/ROLEWORLD_MC_SKIN_PALE_WIZARD_IDLE_BACK.png', { frameWidth: 16, frameHeight: 30 });
     
-        scene.load.spritesheet('player_walk_left', '/assets/images/wizard/characters/robed/walk/ROLEWORLD_MC_SKIN PALE_WIZARD WALK LEFT.png', { frameWidth: 16, frameHeight: 32 });
-        scene.load.spritesheet('player_walk_right', '/assets/images/wizard/characters/robed/walk/ROLEWORLD_MC_SKIN PALE_WIZARD WALK RIGHT.png', { frameWidth: 16, frameHeight: 32 });
-        scene.load.spritesheet('player_walk_front', '/assets/images/wizard/characters/robed/walk/ROLEWORLD_MC_SKIN PALE_WIZARD WALK FRONT.png', { frameWidth: 16, frameHeight: 32 });
-        scene.load.spritesheet('player_walk_back', '/assets/images/wizard/characters/robed/walk/ROLEWORLD_MC_SKIN PALE_WIZARD WALK BACK.png', { frameWidth: 16, frameHeight: 32 });
+        scene.load.spritesheet('player_walk_left', '/assets/images/wizard/characters/robed/walk/ROLEWORLD_MC_SKIN PALE_WIZARD WALK LEFT.png', { frameWidth: 16, frameHeight: 30 });
+        scene.load.spritesheet('player_walk_right', '/assets/images/wizard/characters/robed/walk/ROLEWORLD_MC_SKIN PALE_WIZARD WALK RIGHT.png', { frameWidth: 16, frameHeight: 30 });
+        scene.load.spritesheet('player_walk_front', '/assets/images/wizard/characters/robed/walk/ROLEWORLD_MC_SKIN PALE_WIZARD WALK FRONT.png', { frameWidth: 16, frameHeight: 30 });
+        scene.load.spritesheet('player_walk_back', '/assets/images/wizard/characters/robed/walk/ROLEWORLD_MC_SKIN PALE_WIZARD WALK BACK.png', { frameWidth: 16, frameHeight: 30 });
     }
     else if (typeof USER !== "undefined" && USER.character === 'witch') {
         scene.load.spritesheet('player_idle_left', '/assets/images/wizard/characters/Witch/Witch Idle Sprite/ROLEWORLD_WIZARD_NPC_WITCH IDLE LEFT.png', { frameWidth: 16, frameHeight: 32 });
@@ -205,3 +205,4 @@ export function initWeather(scene) {
       }
     });
   }
+

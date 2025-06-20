@@ -41,6 +41,7 @@ exports.signupUser = async (req, res) => {
       email,
       verified: false,
       verificationToken: token,
+      signupDate: new Date(),   
       role, // 👈 role will be "user" or "admin"
       sound_settings: {
         cicadas: 50,
@@ -65,7 +66,7 @@ exports.signupUser = async (req, res) => {
 
     await newUser.save();
 
-    const verificationLink = `http://localhost:8080/verify-email?token=${token}`;
+    const verificationLink = `http:/zigzag-cut-olivine.glitch.me/verify-email?token=${token}`;
     const transporter = nodemailer.createTransport({
       host: process.env.MAILTRAP_HOST,
       port: parseInt(process.env.MAILTRAP_PORT),
@@ -141,6 +142,10 @@ exports.loginUser = async (req, res) => {
       });
     }
 
+    // ✅ Update lastLogin timestamp
+    user.lastLogin = new Date();
+    await user.save(); // 👈 save the updated lastLogin
+
     req.session.user = user;
 
     // ✅ After successful login: Redirect based on role
@@ -154,6 +159,7 @@ exports.loginUser = async (req, res) => {
     res.status(500).send("Something went wrong");
   }
 };
+
 
 // POST /forgotPassword
 exports.forgotPasswordSubmit = async (req, res) => {
@@ -393,10 +399,63 @@ exports.resetDetailsSubmit = async (req, res) => {
       type: "success",
       message: "✅ Details updated successfully!",
     };
-    res.redirect("/resetDetails");
+    res.redirect("/");
   } catch (err) {
     console.error("Reset details error:", err);
     req.session.flash = { type: "error", message: "Something went wrong!" };
     res.redirect("/resetDetails");
+  }
+};
+
+exports.resetSettings = async (req, res) => {
+  const { userId } = req.body;
+  try {
+    await User.findByIdAndUpdate(userId, {
+      sound_settings: { cicadas: 50, fire: 10, wind: 0, rain: 0, birds: 100 },
+      settings: { location: "bedroom", time_format: "24hrs" },
+      character: "wizard",
+      animal: "dozy",
+      music_settings: {
+        track: { track1: "off", track2: "on", track3: "on" },
+        tasks: [],
+      },
+    });
+    res.redirect("/admin");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Failed to reset settings");
+  }
+};
+
+
+exports.forceResetPassword = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const tempPassword = crypto.randomBytes(4).toString("hex"); // simple temp password
+    const hashedPassword = await bcrypt.hash(tempPassword, 10);
+
+    await User.updateOne({ email }, { $set: { password: hashedPassword } });
+
+    // Send email
+    const transporter = nodemailer.createTransport({
+      host: process.env.MAILTRAP_HOST,
+      port: parseInt(process.env.MAILTRAP_PORT),
+      auth: {
+        user: process.env.MAILTRAP_USER,
+        pass: process.env.MAILTRAP_PASS,
+      },
+    });
+
+    await transporter.sendMail({
+      from: "no-reply@cozytodo.com",
+      to: email,
+      subject: "Password Reset Request",
+      html: `<p>Hello,<br/> Your temporary password is <strong>${tempPassword}</strong>.<br/>Please log in and change your password immediately.</p>`,
+    });
+
+    res.redirect("/admin");
+  } catch (err) {
+    console.error("Force reset password error:", err);
+    res.status(500).send("Failed to reset password");
   }
 };

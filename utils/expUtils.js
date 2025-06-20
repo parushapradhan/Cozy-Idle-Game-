@@ -23,17 +23,7 @@ exports.checkExpLevel = (user) => {
  * @param {number} pts   — points to add
  */
 exports.addExp = (user, pts) => {
-
-  // add points
   user.exp += pts;
-
   exports.checkExpLevel(user);
 };
 
-export function updateLevelExp() {
-  const levelElem = document.getElementById("level");
-  const expElem   = document.getElementById("exp");
-  const { level , exp  } = USER; 
-  if (levelElem) levelElem.textContent = `Total Level: ${level}`;
-  if (expElem)   expElem.textContent   =`Exp Points: ${exp}`;
-}

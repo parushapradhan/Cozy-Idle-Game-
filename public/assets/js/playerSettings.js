@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const animalRadios = document.querySelectorAll('input[name="animal"]');
   const charRadios   = document.querySelectorAll('input[name="character"]');
   const toggleFormatBtn = document.getElementById('toggle-format');
-console.log('USER:', USER);
 
   // 1) Unlock companion choices by level
   if (USER.level >= 1) document.getElementById('animal-dozy').disabled = false;
@@ -24,12 +23,6 @@ console.log('USER:', USER);
     console.log('Time format set to:', USER.settings.time_format);
   });
 
-
-// const birdsSlider = document.getElementById("birds");
-// const cicadasSlider = document.getElementById("cicadas");
-// const windSlider = document.getElementById("wind");
-// const rainSlider = document.getElementById("rain");
-// const fireSlider = document.getElementById("fire");
 
   // 4) Save updated settings
   document.getElementById('save-settings').addEventListener('click', () => {

@@ -99,51 +99,74 @@
     <% users.forEach(user => { %>
     <div class="user-card">
       <h3>
-        <%= user.username %> (Level <%= user.music_settings.level || user.level
-        %>)
+        <%= user.username %> (Level <%= user.music_settings.level || user.level %>)
       </h3>
       <p><strong>Email:</strong> <%= user.email %></p>
-      <p>
-        <strong>XP:</strong> <%= user.music_settings.exp || user.exp || 0 %>
-      </p>
+      <p><strong>XP:</strong> <%= user.exp || user.exp || 0 %></p>
+      <p><strong>Signed Up:</strong> <%= user.signupDate ? user.signupDate.toDateString() : "N/A" %></p>
+      <p><strong>Last Login:</strong> <%= user.lastLogin ? user.lastLogin.toDateString() : "N/A" %></p>
 
-      <form action="/admin/delete-user" method="POST" style="display: inline">
+      <!-- Delete User Form -->
+      <form action="/admin/delete-user" method="POST" class="delete-user-form" style="display: inline">
         <input type="hidden" name="email" value="<%= user.email %>" />
-        <button type="submit">Delete User</button>
+        <button type="submit" class= "pixel-button">Delete User</button>
       </form>
 
+      <!-- Update Level Form -->
       <form action="/admin/update-level" method="POST">
         <input type="hidden" name="email" value="<%= user.email %>" />
         <input type="number" name="level" placeholder="New Level" required />
-        <button type="submit"> Update Level</button>
+        <button type="submit" class= "pixel-button">Update Level</button>
       </form>
 
       <p><strong>Tasks:</strong></p>
       <ul>
-        <% if (user.music_settings && user.music_settings.tasks &&
-        user.music_settings.tasks.length > 0) { %> <%
-        user.music_settings.tasks.forEach(task => { %>
-        <li>
-          <%= task.task_name || task %>
-          <form
-            action="/admin/remove-task"
-            method="POST"
-            style="display: inline"
-          >
-            <input type="hidden" name="email" value="<%= user.email %>" />
-            <input
-              type="hidden"
-              name="task"
-              value="<%= task.task_name || task %>"
-            />
-            <button type="submit">❌</button>
-          </form>
-        </li>
-        <% }) %> <% } else { %>
-        <li>No tasks</li>
+        <% if (user.music_settings && user.music_settings.tasks && user.music_settings.tasks.length > 0) { %> 
+          <% user.music_settings.tasks.forEach(task => { %>
+            <li>
+              <%= task.task_name || task %>
+              <form action="/admin/remove-task" method="POST" style="display: inline">
+                <input type="hidden" name="email" value="<%= user.email %>" />
+                <input type="hidden" name="task" value="<%= task.task_name || task %>" />
+                <button type="submit">❌</button>
+              </form>
+            </li>
+          <% }) %> 
+        <% } else { %>
+          <li>No tasks</li>
         <% } %>
       </ul>
+          <form action="/admin/reset-settings" method="POST">
+  <input type="hidden" name="userId" value="<%= user._id %>" />
+  <button type="submit" class="pixel-button">Reset Settings</button>
+</form>
+<form action="/admin/force-reset-password" method="POST" class="force-reset-form">
+  <input type="hidden" name="email" value="<%= user.email %>" />
+  <button type="submit" class="pixel-button">Force Reset Password</button>
+</form>
+
+
     </div>
     <% }) %>
   </div>
 </div>
+
+<script>
+  // Confirm before deleting user
+  const deleteForms = document.querySelectorAll('.delete-user-form');
+  deleteForms.forEach(form => {
+    form.addEventListener('submit', function(e) {
+      const confirmDelete = confirm('Are you sure you want to delete this user?');
+      if (!confirmDelete) {
+        e.preventDefault();
+      }
+    });
+  });
+  const forceResetForms = document.querySelectorAll('.force-reset-form');
+  forceResetForms.forEach(form => {
+    form.addEventListener('submit', function(e) {
+      alert('📧 Password reset email sent!');
+      // let the form submit normally after showing the popup
+    });
+  });
+</script>

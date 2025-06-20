@@ -31,6 +31,8 @@ const UserSchema = new mongoose.Schema({
     location: String,
     time_format: String,
   },
+  signupDate: { type: Date, default: Date.now }, // <-- new
+  lastLogin: { type: Date },  
 });
 
 module.exports = mongoose.model("User", UserSchema);

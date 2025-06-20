@@ -1,5 +1,5 @@
 import { loadPlayerAssets, loadAnimalAssets ,playAnimalAnimation} from '../gameUtils.js';
-import { Player } from '../objects/Player.js';
+import { Player } from '../objects/player.js';
 
 let cursors, keys, keyE, player, interactiveObj, decoration;
 let blue, cauldron, candle1, basement;
@@ -93,7 +93,7 @@ export class Bedroom extends Phaser.Scene {
           }
           if (
             Phaser.Math.Distance.Between(this.player.x, this.player.y, fireplace.x, fireplace.y) < 40 &&
-            Phaser.Input.Keyboard.JustDown(this.player.keys.E)
+            Phaser.Input.Keyboard.JustDown(this.player.keys.ENTER)
           ) {
             if (fireplaceOn) {
               fireplaceOn = false;

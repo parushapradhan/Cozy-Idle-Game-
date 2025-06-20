@@ -1,7 +1,8 @@
 const Task = require('../models/Task');
 const User = require('../models/User');
 const { addExp } = require('../utils/expUtils');
-const { updateExpLevel } = require('../utils/expUtils');
+// const { updateExpLevel } = require('../utils/expUtils');
+// const { updateExpLevel} = require('/assets/js/gameUtils');
 exports.createTask = async (req, res) => {
   try {
     const { description } = req.body;
@@ -43,11 +44,25 @@ exports.updateTask = async (req, res) => {
       const user = await User.findById(task.userId);
 
       if (user) {
-        user=user.addExp(user,10);
+        let exp = user.exp;
+        let level = user.level;
+        user.exp += 10;
+        if (exp >= 200 && level === 1) {
+          user.level = 2;
+        }
+        if (exp >= 400 && level === 2) {
+          user.level = 3;
+        }
+        if (exp >= 600 && level === 3) {
+          user.level = 4;
+        }
+        if (exp >= 800 && level === 4) {
+          user.level = 5;
+        }
         console.log(user);
         await user.save();
         req.session.user = user;
-        updateExpLevel();
+        // updateExpLevel();
       }
     }
 

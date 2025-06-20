@@ -13,7 +13,11 @@ window.addEventListener('load', () => {
       width: 208,           
       height: 208,
       zoom: 3,
-      pixelArt: true,           
+      pixelArt: true, 
+      scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH
+      },
       physics: {
         default: 'arcade',
         arcade: { gravity: { y: 0 }, debug: false , debugShowBody: false}

@@ -71,3 +71,50 @@
   text-decoration: line-through;
   opacity: 0.6;
 }
+
+@media screen and (max-width: 600px) {
+  /* Stack sidebar + content vertically */
+  .settings-container {
+    flex-direction: column;
+    max-width: 100%;
+    margin: 10px;
+  }
+
+  /* Content area full width */
+  .content {
+    padding: 0.5rem;
+  }
+  .content h2 {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  /* Make input + buttons stack */
+  .todo-input {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .todo-input input[type="text"] {
+    width: 100%;
+  }
+  .todo-input button {
+    width: 100%;
+    margin: 0;
+  }
+
+  /* Logout button full-width and margin */
+  .logoutBtn {
+    width: 100%;
+    margin: 0.5rem 0 0;
+  }
+
+  /* Todo items: wrap text or make larger tap targets */
+  .todo-item {
+    padding: 0.75rem;
+    font-size: 0.95rem;
+  }
+  .todo-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+  }
+}

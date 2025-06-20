@@ -13,11 +13,13 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
   
       this.cursors = scene.input.keyboard.createCursorKeys();
       this.keys = scene.input.keyboard.addKeys({
-        W: Phaser.Input.Keyboard.KeyCodes.W,
-        A: Phaser.Input.Keyboard.KeyCodes.A,
-        S: Phaser.Input.Keyboard.KeyCodes.S,
-        D: Phaser.Input.Keyboard.KeyCodes.D,
-        E: Phaser.Input.Keyboard.KeyCodes.E,
+        // W: Phaser.Input.Keyboard.KeyCodes.W,
+        // A: Phaser.Input.Keyboard.KeyCodes.A,
+        // S: Phaser.Input.Keyboard.KeyCodes.S,
+        // D: Phaser.Input.Keyboard.KeyCodes.D,
+        // E: Phaser.Input.Keyboard.KeyCodes.E,
+        ENTER: Phaser.Input.Keyboard.KeyCodes.ENTER
+        
       });
   
       this.currentDirection = 'front';
@@ -82,22 +84,44 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
       this.body.setVelocity(0);
       let moving = false;
   
-      if (this.keys.A.isDown || this.cursors.left.isDown) {
+      // if (this.keys.A.isDown || this.cursors.left.isDown) {
+      //   this.body.setVelocityX(-150);
+      //   this.play('walk-left', true);
+      //   this.currentDirection = 'left';
+      //   moving = true;
+      // } else if (this.keys.D.isDown || this.cursors.right.isDown) {
+      //   this.body.setVelocityX(150);
+      //   this.play('walk-right', true);
+      //   this.currentDirection = 'right';
+      //   moving = true;
+      // } else if (this.keys.W.isDown || this.cursors.up.isDown) {
+      //   this.body.setVelocityY(-150);
+      //   this.play('walk-back', true);
+      //   this.currentDirection = 'back';
+      //   moving = true;
+      // } else if (this.keys.S.isDown || this.cursors.down.isDown) {
+      //   this.body.setVelocityY(150);
+      //   this.play('walk-front', true);
+      //   this.currentDirection = 'front';
+      //   moving = true;
+      // }
+      
+      if (this.cursors.left.isDown) {
         this.body.setVelocityX(-150);
         this.play('walk-left', true);
         this.currentDirection = 'left';
         moving = true;
-      } else if (this.keys.D.isDown || this.cursors.right.isDown) {
+      } else if (this.cursors.right.isDown) {
         this.body.setVelocityX(150);
         this.play('walk-right', true);
         this.currentDirection = 'right';
         moving = true;
-      } else if (this.keys.W.isDown || this.cursors.up.isDown) {
+      } else if (this.cursors.up.isDown) {
         this.body.setVelocityY(-150);
         this.play('walk-back', true);
         this.currentDirection = 'back';
         moving = true;
-      } else if (this.keys.S.isDown || this.cursors.down.isDown) {
+      } else if (this.cursors.down.isDown) {
         this.body.setVelocityY(150);
         this.play('walk-front', true);
         this.currentDirection = 'front';
